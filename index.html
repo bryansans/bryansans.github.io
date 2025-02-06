@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz San Valentín</title>
+    <style>
+        body {
+            background: url('juntos.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            padding: 20px;
+            animation: latido 1.5s infinite alternate ease-in-out;
+            position: relative;
+        }
+        @keyframes latido {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        h1 {
+            color: #d6336c;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 300px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .btn:hover {
+            background-color: #c9184a;
+            transform: scale(1.1);
+        }
+
+        /* Efecto de transición */
+        #fadeOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 1;
+            z-index: 100;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        /* Aparece suavemente al cargar */
+        body.loaded #fadeOverlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Estilos del confeti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: caer 2s linear forwards;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <div id="fadeOverlay"></div> <!-- Capa de transición -->
+
+    <h1>Morcita mia, ¿quieres ser mi San Valentín? ❤️</h1>
+    <button class="btn" onclick="lanzarConfeti(); irAPagina()">Si 🤑 </button>
+    <button class="btn" onclick="lanzarConfeti(); irAPagina()">Si nomas 😠</button>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("loaded"); // Oculta el overlay al cargar
+        });
+
+        function irAPagina() {
+            let fadeOverlay = document.getElementById("fadeOverlay");
+            fadeOverlay.style.opacity = "1"; // Oscurece la pantalla
+            setTimeout(() => {
+                window.location.href = "corazon.html";
+            }, 1000); // Espera la animación antes de redirigir
+        }
+
+        function lanzarConfeti() {
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement("div");
+                confetti.className = "confetti";
+                document.body.appendChild(confetti);
+
+                let colores = ["#ff4d6d", "#ffbe0b", "#fb5607", "#8338ec", "#3a86ff"];
+                confetti.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.animationDuration = (Math.random() * 2 + 1.5) + "s";
+                
+                setTimeout(() => { confetti.remove(); }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
